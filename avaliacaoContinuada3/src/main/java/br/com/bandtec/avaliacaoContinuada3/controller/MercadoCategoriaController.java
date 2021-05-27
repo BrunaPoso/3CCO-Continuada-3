@@ -13,8 +13,6 @@ import java.util.List;
 @RequestMapping("/categorias")
 public class MercadoCategoriaController {
 
-    List<MercadoCategoriaController> lista;
-
     @Autowired
     private MercadoCategoriaRepository repository;
 
@@ -33,12 +31,6 @@ public class MercadoCategoriaController {
     public ResponseEntity deleteCategoria(@PathVariable int id){
         repository.deleteById(id);
         return ResponseEntity.status(204).body("Deletado com sucesso!");
-    }
-
-    @GetMapping("/recursivo/{id}")
-    public ResponseEntity getAnteriores(@PathVariable int id){
-        Integer valor = Math.toIntExact(repository.count());
-        return ResponseEntity.status(200).body(getAnteriores(valor));
     }
 
 

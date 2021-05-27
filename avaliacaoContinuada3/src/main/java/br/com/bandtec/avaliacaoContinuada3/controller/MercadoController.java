@@ -16,7 +16,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -27,13 +26,12 @@ public class MercadoController {
     PilhaObj<Mercado> pilha = new PilhaObj(10);
     Mercado mercado = new Mercado();
     MercadoGrava mercadoGrava = new MercadoGrava();
-    Agendamento agendamento = new Agendamento();
 
     @Autowired
     private MercadoRepository repository;
 
-//    @Autowired
-//    private MercadoProtocoloRepository repositoryProtocolo;
+    @Autowired
+    private Agendamento agendamento;
 
     @DeleteMapping("/desfazer")
     public ResponseEntity desfazerPost(){
@@ -82,7 +80,7 @@ public class MercadoController {
 
         if(protocoloOptional.isPresent()){
             return ResponseEntity.status(200).body
-                    (protocoloOptional.get().getProtocolo());
+                    (protocoloOptional.get().getProduto());
         } else {
             LocalDateTime previsao = LocalDateTime.now().plusSeconds(5);
             return ResponseEntity.status(404).header("previsao", previsao.toString()).build();

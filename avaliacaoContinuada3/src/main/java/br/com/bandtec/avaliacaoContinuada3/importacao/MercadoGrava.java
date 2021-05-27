@@ -8,40 +8,34 @@ import java.util.*;
 public class MercadoGrava {
 
     public static void leExibeArquivo(boolean isCSV) {
-        FileReader arq= null;		// objeto FileReader - representa o arquivo a ser lido
-        Scanner entrada = null;		// objeto Scanner - para ler do arquivo
-        String nomeArquivo;			// nome do arquivo
-        boolean deuRuim= false;		// indica se deu erro
+        FileReader arq= null;
+        Scanner entrada = null;
+        String nomeArquivo;
+        boolean deuRuim= false;
 
         if (isCSV) {
-            nomeArquivo= "mercado.csv";	// nome do arquivo, se for CSV
+            nomeArquivo= "mercado.csv";
         }
         else {
-            nomeArquivo= "mercado.txt";	// nome do arquivo, se for TXT
+            nomeArquivo= "mercado.txt";
         }
 
-        // Abre o arquivo para leitura
         try {
             arq = new FileReader(nomeArquivo);
             if (isCSV) {
-                // se o arquivo for CSV, usa como delimitador de campo o ';' e o fim de registro
                 entrada = new Scanner(arq).useDelimiter(";|\\r\\n");
             }
             else {
-                // se o arquivo for TXT, usa como delimitador de campo o ' ' e o fim de registro
                 entrada = new Scanner(arq);
             }
         }
         catch (FileNotFoundException erro) {
             System.err.println("Arquivo não encontrado");
-            System.exit(1); // encerra o programa, com status de erro
+            System.exit(1);
         }
 
-        // Lê os registros do arquivo e exibe os dados lidos na console
         try {
-            // Exibe na console os títulos das colunas
             System.out.printf("%-20s%-6s%10s%2s\n","PRODUTO","PRECO","VALIDADE","CATEGORIA");
-            // Enquanto tem registro a ser lido
             while (entrada.hasNext()) {
                 String produto = entrada.next();
                 double preco = entrada.nextDouble();
